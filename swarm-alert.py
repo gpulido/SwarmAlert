@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
     has_send_error_alert = False
     while True:
-        (status, err_msg) = monitor_swarm_pushover("/var/run/docker.sock", white_pattern_list)
+        (status, err_msg) = monitor_swarm_pushover(docker_client, white_pattern_list)
         if msg_prefix != "":
             err_msg = "%s\n%s" % (msg_prefix, err_msg)
         print("%s: %s" % (status, err_msg))
