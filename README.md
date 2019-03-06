@@ -7,32 +7,18 @@ Note: This project is based on the [monitor-docker-slack](https://github.com/Den
 2. This service will query status for all services.
 3. Send pushover notifications.
 
-# How To Use: Plain Container
-- Specify pushover credentials via env
-
-```
-export PUSHOVER_TOKEN="#XXX"
-export PUSHOVER_APP_KEY="XXX"
-export MSG_PREFIX="Monitoring On XX.XX.XX.XX"
-```
-
-- Start service to check
-
 # How To Use: Docker-compose
 ```
 version: '2'
 services:
-  monitor-docker-slack:
-    container_name: monitor-docker-slack
-    image: denny/monitor-docker-slack:latest
+  searm-alert:
+    image: gpulidodt/swarm-alert:latest
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      SLACK_CHANNEL: "#XXX"
-      SLACK_USERNAME: "XXX"
-      SLACK_TOKEN: "xoxp-XXX-XXX-XXX-XXXXXXXX"
+      PUSHOVER_TOKEN: "#XXX"
+      PUSHOVER_APP_KEY: "XXX"
       MSG_PREFIX: "Monitoring On XX.XX.XX.XX"
-    restart: always
 ```
 
 # More customization
