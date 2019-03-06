@@ -12,6 +12,7 @@ USER root
 WORKDIR /
 ADD swarm-alert.py /swarm-alert.py
 ADD swarm-alert.sh /swarm-alert.sh
+ADD requirements.txt /requirements.txt
 
 RUN chmod o+x /*.sh && chmod o+x /*.py && \
     pip install -r requirements.txt
