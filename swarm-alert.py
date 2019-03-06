@@ -12,7 +12,7 @@ def service_list_to_str(services_list):
     return msg
 
 def monitor_swarm_pushover(docker_client, white_pattern_list):
-    services = [docker_client.inspect_service(service=service_name) for service_name in white_pattern_list]
+    services = [service for service in docker_client.services.list() if service.name in white_pattern_list]
     not_running_services = [service for service in services if len(services.tasks(desired_state='Running')) == 0]
     err_msg = ""
     if len(not_running_services) != 0:
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     has_send_error_alert = False
     while True:
         (status, err_msg) = monitor_swarm_pushover(docker_client, white_pattern_list)
-        if msg_prefix != "":
+        if msg_prefix != "":    
             err_msg = "%s\n%s" % (msg_prefix, err_msg)
         print("%s: %s" % (status, err_msg))
         if status == "OK":
