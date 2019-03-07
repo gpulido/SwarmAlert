@@ -22,7 +22,10 @@ def service_list_to_str(services_list):
 
 def monitor_swarm_pushover(docker_client, white_pattern_list):
     logger.debug("Getting services from docker")
-    services = [service for service in docker_client.services.list() if service.name in white_pattern_list]
+    if len(white_pattern_list) > 0:
+        services = [service for service in docker_client.services.list() if service.name in white_pattern_list]
+    else:
+        services = docker_client.services.list()
     services_name = [service.name for service in services]
     logger.debug(str(services_name))  
     not_running_services = [service for service in services if(len(service.tasks({'desired-state':'Running'})) == 0)]
