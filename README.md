@@ -1,3 +1,5 @@
+[![Docker](https://raw.githubusercontent.com/USDevOps/mywechat-slack-group/master/images/docker.png)](https://hub.docker.com/r/denny/monitor-docker-slack/)
+
 # Introduction
 The SwarmAlert app monitors the availability of services running in a Docker Swarm. It currently monitors only those services specified in the WHITE_LIST ENV variable, making this a required parameter. If a specified service has no running task, the app generates a Pushover Notification using the specified Token, App Key, and MSG_PREFIX.
 
