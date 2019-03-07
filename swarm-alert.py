@@ -76,7 +76,7 @@ if __name__ == '__main__':
         print("Warning: Please provide a valid pushover application key.")
     
     logger.info("Registering PushoverClient")
-    pushover_client = Client(pushover_key, api_token="pushover_token")
+    pushover_client = Client(pushover_key, api_token=pushover_token)
     pushover_client.send_message("Initializing monitoring", title="SwarmAlert")
     logger.info("Registering Docker Client")
     docker_client = docker.DockerClient(base_url='unix://var/run/docker.sock')
