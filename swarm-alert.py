@@ -53,7 +53,7 @@ if __name__ == '__main__':
     white_pattern_list = l.whitelist.split(',')    
     if white_pattern_list == ['']:
         white_pattern_list = []
-    logger.debug("Whitelist: " str(white_pattern_list))
+    logger.debug("Whitelist: " + str(white_pattern_list))
     pushover_token = l.token
     pushover_key = l.app_key
     msg_prefix = l.msg_prefix
