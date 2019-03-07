@@ -1,7 +1,6 @@
 version: '2'
 services:
   swarm-alert:
-    container_name: swarm-alert
     image: gpulidodt/swarm-alert:latest
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
