@@ -11,6 +11,11 @@ __author__ = 'gpt'
 def service_list_to_str(services_list):
     return '\n'.join([s.name for s in services_list])
 
+def sanitize_str_arg(str_arg):
+    if str_arg.startswith('"') and str_arg.endswith('"'):
+        str_arg = str_arg[1:-1]
+    return str_arg
+
 def monitor_swarm_pushover(docker_client, white_pattern_list, black_list):
     logger.debug("Getting services from docker")
     services = docker_client.services.list()
@@ -56,19 +61,19 @@ if __name__ == '__main__':
     logger.info("Initializing monitor")
 
     check_interval = l.check_interval
-    white_pattern_list = l.whitelist.split(',')    
+    white_pattern_list = sanitize_str_arg(l.whitelist.split(','))
     if white_pattern_list == ['']:
         white_pattern_list = []
     logger.debug("Whitelist: " + str(white_pattern_list))
     
-    black_list = l.blacklist.split(',')    
+    black_list = sanitize_str_arg(l.blacklist.split(','))
     if black_list == ['']:
         black_list = []
     logger.debug("BlackList: " + str(black_list))
 
-    pushover_user_key = l.user_key
-    pushover_api_token = l.api_token
-    msg_prefix = l.msg_prefix
+    pushover_user_key = sanitize_str_arg(l.user_key)
+    pushover_api_token = sanitize_str_arg(l.api_token)
+    msg_prefix =  sanitize_str_arg(l.msg_prefix)
 
     if pushover_user_key == '':
         print("Warning: Please provide a valid pushover user key.")        
