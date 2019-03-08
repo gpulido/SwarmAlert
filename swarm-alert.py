@@ -76,6 +76,7 @@ if __name__ == '__main__':
         print("Warning: Please provide a valid pushover application token.")
     
     logger.info("Registering PushoverClient")
+    logger.debug("using pushover_user_key: " + pushover_user_key + " " + "pushover_api_token: " + pushover_api_token)
     pushover_client = Client(pushover_user_key, api_token=pushover_api_token)    
     pushover_client.send_message("Initializing monitoring", title="SwarmAlert")
 
