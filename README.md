@@ -1,7 +1,7 @@
 [![Docker](https://raw.githubusercontent.com/USDevOps/mywechat-slack-group/master/images/docker.png)](https://cloud.docker.com/u/gpulidodt/repository/docker/gpulidodt/swarm-alert)
 
 # Introduction
-The SwarmAlert app monitors the availability of services running in a Docker Swarm. It currently monitors only those services specified in the WHITE_LIST ENV variable, making this a required parameter. If a specified service has no running task, the app generates a Pushover Notification using the specified Token, App Key, and MSG_PREFIX.
+The SwarmAlert app monitors the availability of services running in a Docker Swarm. It currently monitors only those services specified in the WHITE_LIST ENV variable, if not defined, all services are monitored. If a specified service has no running task, the app generates a Pushover Notification using the specified user Token, Api Key, and MSG_PREFIX.
 
 Note: This project is based on [monitor-docker-slack](https://github.com/DennyZhang/monitor-docker-slack)
 
@@ -24,6 +24,7 @@ services:
      - MSG_PREFIX: "$MSG_PREFIX"
      - WHITE_LIST="traefik_traefik,plex_plex,etc."
      - BLACK_LIST="shepherd_shepherd"
+     - LOGGING_LEVEL = INFO | DEBUG
 ```
 
 # Further customization
@@ -39,5 +40,6 @@ services:
 ```
  - BLACK_LIST="nodeexporter,ngin.*"
 ```
+- Logging capabilities are included, it is set as INFO level by default, can be increased to DEBUG using the LOGGIN_LEVEL env variable.
 
 Code is licensed under MIT license
