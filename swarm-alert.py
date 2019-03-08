@@ -61,12 +61,12 @@ if __name__ == '__main__':
     logger.info("Initializing monitor")
 
     check_interval = l.check_interval
-    white_pattern_list = sanitize_str_arg(l.whitelist.split(','))
+    white_pattern_list = sanitize_str_arg(l.whitelist).split(',')
     if white_pattern_list == ['']:
         white_pattern_list = []
     logger.debug("Whitelist: " + str(white_pattern_list))
     
-    black_list = sanitize_str_arg(l.blacklist.split(','))
+    black_list = sanitize_str_arg(l.blacklist).split(',')    
     if black_list == ['']:
         black_list = []
     logger.debug("BlackList: " + str(black_list))
