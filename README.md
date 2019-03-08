@@ -1,16 +1,26 @@
 [![Docker](https://raw.githubusercontent.com/USDevOps/mywechat-slack-group/master/images/docker.png)](https://cloud.docker.com/u/gpulidodt/repository/docker/gpulidodt/swarm-alert)
 
 # Introduction
-The SwarmAlert app monitors the availability of services running in a Docker Swarm. It currently monitors only those services specified in the WHITE_LIST ENV variable, if not defined, all services are monitored. If a specified service has no running task, the app generates a Pushover Notification using the specified user Token, Api Key, and MSG_PREFIX.
+The SwarmAlert app monitors the availability of services running in a Docker Swarm environment. 
+
+It offers an optional WHITELIST of services to monitor. If a WHITELIST is not defined, ALL services in the Swarm are monitored by default. 
+
+An optional BLACKLIST is also configurable, and takes precedence over the whitelist and defaults. This is to allow you to use the BLACKLIST to avoid receiving alerts while doing planned maintenance. T
+
+he app checks every CHECK_INTERVAL seconds. Upon checking, if a specified service has no running task, the app generates a Pushover Notification using the specified variables: 
+  1. User Token
+  2. Api Key
+  3. Msg_Prefix
 
 Note: This project is based on [monitor-docker-slack](https://github.com/DennyZhang/monitor-docker-slack)
 
 # General Idea
-1. Start one or more services in Docker Swarm mode.
-2. Use this service to monitor the availability of services.
-3. Send a pushover notifications containeing the unavailable services.
+1. Run one or more services in Docker Swarm mode.
+2. Start this service to monitor the availability of other services.
+3. Monitor services each CHECK_INTERVAL seconds for services with no running containers.
+4. Send a pushover notifications containing the unavailable services.
 
-# How To Use: Docker-compose
+# Usage: Docker-compose
 ```
 version: '3'
 services:
@@ -19,12 +29,12 @@ services:
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
     environment:
-     - PUSHOVER_USER_KEY: "user_key_from_pushover"
-     - PUSHOVER_API_TOKEN: "your_app_token_from_pushover"
-     - MSG_PREFIX: "$MSG_PREFIX"
-     - WHITE_LIST="traefik_traefik,plex_plex,etc."
-     - BLACK_LIST="shepherd_shepherd"
-     - LOGGING_LEVEL = INFO | DEBUG
+     - PUSHOVER_USER_KEY: user_key_from_pushover
+     - PUSHOVER_API_TOKEN: your_app_token_from_pushover
+     - MSG_PREFIX: '$MSG_PREFIX'
+     - WHITE_LIST: ''traefik_traefik','plex_plex','test_service''
+     - BLACK_LIST: ''test_service''
+     - LOGGING_LEVEL: INFO | DEBUG
 ```
 
 # Further customization
