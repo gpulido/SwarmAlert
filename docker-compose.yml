@@ -5,6 +5,6 @@ services:
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      PUSHOVER_APP_KEY: "XXX"
-      PUSHOVER_TOKEN: "$SLACK_TOKEN"
+      PUSHOVER_USER_KEY: "user_key_from_pushover"
+      PUSHOVER_API_TOKEN: "your_app_token_from_pushover"
       MSG_PREFIX: "$MSG_PREFIX"

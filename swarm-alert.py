@@ -32,12 +32,11 @@ def monitor_swarm_pushover(docker_client, white_pattern_list, black_list):
     else:
         return "ERROR", err_msg
 
-
 if __name__ == '__main__':
     
     parser = argparse.ArgumentParser()
-    parser.add_argument('--token', required=True, help="Pushover Token.", type=str)
-    parser.add_argument('--app_key', required=True, help="Pushover Application key.", type=str)
+    parser.add_argument('--user_key', required=True, help="Pushover User Key.", type=str)
+    parser.add_argument('--api_token', required=True, help="Pushover Application token.", type=str)
     parser.add_argument('--whitelist', default='', required=False,
                         help="List of services to monitor. If not provided or empty, all will be monitorized.", type=str)
     parser.add_argument('--blacklist', default='', required=False,
@@ -47,6 +46,7 @@ if __name__ == '__main__':
     parser.add_argument('--msg_prefix', default='', required=False, help="Pushover message prefix.", type=str)
     parser.add_argument('--loglevel', default='DEBUG', choices=['INFO', 'DEBUG'],  required=False, help="Logging level.", type=str)
     l = parser.parse_args()
+
     #Configure logging
     import logging
     numeric_level = getattr(logging, l.loglevel.upper(), None)
@@ -66,18 +66,19 @@ if __name__ == '__main__':
         black_list = []
     logger.debug("BlackList: " + str(black_list))
 
-    pushover_token = l.token
-    pushover_key = l.app_key
+    pushover_user_key = l.user_key
+    pushover_api_token = l.api_token
     msg_prefix = l.msg_prefix
 
-    if pushover_token == '':
-        print("Warning: Please provide a valid pushover token.")
-    if pushover_key == '':
-        print("Warning: Please provide a valid pushover application key.")
+    if pushover_user_key == '':
+        print("Warning: Please provide a valid pushover user key.")        
+    if pushover_api_token == '':
+        print("Warning: Please provide a valid pushover application token.")
     
     logger.info("Registering PushoverClient")
-    pushover_client = Client(pushover_key, api_token=pushover_token)
+    pushover_client = Client(pushover_user_key, api_token=pushover_api_token)    
     pushover_client.send_message("Initializing monitoring", title="SwarmAlert")
+
     logger.info("Registering Docker Client")
     docker_client = docker.DockerClient(base_url='unix://var/run/docker.sock')
 
@@ -100,5 +101,4 @@ if __name__ == '__main__':
                 # avoid send alerts over and over again
                 has_send_error_alert = True
         time.sleep(check_interval)
-# File : monitor-docker-slack.py ends
 
