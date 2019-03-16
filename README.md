@@ -5,9 +5,7 @@ The SwarmAlert app monitors the availability of services running in a Docker Swa
 
 It offers an optional WHITELIST of services to monitor. If a WHITELIST is not defined, ALL services in the Swarm are monitored by default. 
 
-An optional BLACKLIST is also configurable, and takes precedence over the whitelist and defaults. This is to allow you to use the BLACKLIST to avoid receiving alerts while doing planned maintenance. T
-
-he app checks every CHECK_INTERVAL seconds. Upon checking, if a specified service has no running task, the app generates a Pushover Notification using the specified variables: 
+An optional BLACKLIST is also configurable, and takes precedence over the whitelist and defaults. This is to allow you to use the BLACKLIST to avoid receiving alerts while doing planned maintenance. The app checks every CHECK_INTERVAL seconds. Upon checking, if a specified service has no running task, the app generates a Pushover Notification using the specified variables: 
   1. User Token
   2. Api Key
   3. Msg_Prefix
