@@ -1,4 +1,5 @@
 [![Docker](https://raw.githubusercontent.com/USDevOps/mywechat-slack-group/master/images/docker.png)](https://cloud.docker.com/u/gpulidodt/repository/docker/gpulidodt/swarm-alert)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 
 # Introduction
 The SwarmAlert app monitors the availability of services running in a Docker Swarm environment. 
