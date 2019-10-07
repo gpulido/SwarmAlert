@@ -11,12 +11,15 @@ ENV LOGGING_LEVEL "INFO"
 ENV CHECK_INTERVAL "300"
 
 USER root
-WORKDIR /
-ADD swarm-alert.py /swarm-alert.py
-ADD swarm-alert.sh /swarm-alert.sh
-ADD requirements.txt /requirements.txt
 
+WORKDIR /
+
+ADD requirements.txt /requirements.txt
 RUN chmod o+x /*.sh && chmod o+x /*.py && \
     pip install -r requirements.txt
+
+COPY ./src /src
+ADD swarm-alert.sh /swarm-alert.sh
+
 
 ENTRYPOINT ["/swarm-alert.sh"]

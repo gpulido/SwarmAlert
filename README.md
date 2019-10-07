@@ -8,10 +8,10 @@ The SwarmAlert app monitors the availability of services running in a Docker Swa
 
 It offers an optional WHITELIST of services to monitor. If a WHITELIST is not defined, ALL services in the Swarm are monitored by default. 
 
-An optional BLACKLIST is also configurable, and takes precedence over the whitelist and defaults. This is to allow you to use the BLACKLIST to avoid receiving alerts while doing planned maintenance. The app checks every CHECK_INTERVAL seconds. Upon checking, if a specified service has no running task, the app generates a Pushover Notification using the specified variables: 
-  1. User Token
-  2. Api Key
-  3. Msg_Prefix
+An optional BLACKLIST is also configurable, and takes precedence over the whitelist and defaults. This is to allow you to use the BLACKLIST to avoid receiving alerts while doing planned maintenance. The app checks every CHECK_INTERVAL seconds. Upon checking, if a specified service has no running task, the app generates a Notification that is send to the services configured on the config.yml file.
+More information about the config.yml format is available on the apprise repository:  [apprise config yaml file reference](https://github.com/caronc/apprise/wiki/config_yaml)
+
+The Msg_Prefix is used to customize the message send to the notification providers.  
 
 Note: This project is based on [monitor-docker-slack](https://github.com/DennyZhang/monitor-docker-slack)
 
@@ -29,6 +29,7 @@ services:
     image: gpulidodt/swarm-alert:latest
     volumes:
      - /var/run/docker.sock:/var/run/docker.sock
+     - /path_to_config/config.yml:/src/config.yml
     environment:
      - PUSHOVER_USER_KEY: user_key_from_pushover
      - PUSHOVER_API_TOKEN: your_app_token_from_pushover
@@ -54,3 +55,5 @@ services:
 - Logging capabilities are included, it is set as INFO level by default, can be increased to DEBUG using the LOGGIN_LEVEL env variable.
 
 Code is licensed under MIT license
+
+
