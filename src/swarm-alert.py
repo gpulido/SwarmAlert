@@ -107,6 +107,7 @@ if __name__ == '__main__':
     if not config.add('/src/config.yml'):
          print("Warning: Please provide a valid apprise configuration.")   
     
+    apobj.add(config)
     apobj.notify(body='Initializing monitoring',
                  title='SwarmAlert' ) 
     logger.info("Registering Docker Client")
