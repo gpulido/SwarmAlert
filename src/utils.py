@@ -8,7 +8,7 @@ def sanitize_str_arg(str_arg):
 
 
 def get_list_from_params(params_list):
-    new_list = sanitize_str_arg(params_list.split(','))
+    new_list = sanitize_str_arg(params_list).split(',')
     if new_list == ['']:
         new_list = []
     return new_list
