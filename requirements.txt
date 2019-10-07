@@ -1,5 +1,4 @@
 nose
 pylint
 apprise
-python-pushover
 docker
