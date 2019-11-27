@@ -48,7 +48,7 @@ def analyse_status(stopped_services, new_stopped):
     recovered_services = [s for s in stopped_services if s not in stopped_services]
     new_failing = [s for s in new_stopped if s not in stopped_services]
     keep_failing = [ s for s in stopped_services if s in stopped_services]
-    return (recovered_services, new_failing)
+    return (recovered_services, new_failing, keep_failing)
 
 
 def monitor_and_notify(docker_client, apobj):
