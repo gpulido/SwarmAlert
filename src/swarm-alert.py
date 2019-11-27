@@ -60,14 +60,14 @@ def monitor_and_notify(docker_client, apobj):
         new_stopped = monitor_swarm(docker_client, white_pattern_list, black_list)
         (recovered, failing, old_failing) = analyse_status(stopped_services, new_stopped)
         logger.debug(f'Recovered: {str(recovered)}\nFailing: {str(failing)}\nold_failing: {str(old_failing)}') 
-        if len(recovered != 0):                        
+        if len(recovered) != 0:                        
             recovered_msg = f'{msg_prefix} Recovered Services: \n {service_list_to_str(recovered)}'   
             logger.debug("Sending notification:" + recovered_msg)
             apobj.notify(body=recovered_msg,
                         title='SwarmAlert',
                         notify_type=NotifyType.INFO)                              
         
-        if len(failing != 0):                        
+        if len(failing) != 0:                        
             failed_msg = f'{msg_prefix} Detected New Stopped Services: \n {service_list_to_str(failing)}'   
             logger.debug("Sending notification:" + failed_msg)
             apobj.notify(body=failed_msg,
@@ -75,7 +75,7 @@ def monitor_and_notify(docker_client, apobj):
                         notify_type=NotifyType.FAILURE)        
         
         #Only notify old failing services if we are already notifing changes
-        if len(old_failing) != 0 and (len(failing != 0) or len(recovered != 0)):
+        if len(old_failing) != 0 and (len(failing) != 0 or len(recovered)!= 0):
             old_failed_msg = f'{msg_prefix} Already Stopped Services: \n {service_list_to_str(old_failing)}'   
             logger.debug("Sending notification:" + old_failed_msg)
             apobj.notify(body=old_failed_msg,
