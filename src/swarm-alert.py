@@ -33,9 +33,8 @@ def monitor_swarm(docker_client, white_list, black_list):
     
     services_name = [service.name for service in services]
     logger.debug(str(services_name))  
-    not_running_services = [service for service in services if(len(service.tasks({'desired-state':'Running'})) == 0)]
-    not_running_services_name = [service.name for service in not_running_services]
-    return not_running_services_name    
+    not_running_services = [service for service in services if(len(service.tasks({'desired-state':'Running'})) == 0)]    
+    return not_running_services    
 
 
 def configure_logger(logger_level):
