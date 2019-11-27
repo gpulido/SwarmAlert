@@ -8,7 +8,7 @@ from utils import *
 from apprise import NotifyType
 import apprise
 
-__version__ = '0.0.5-dev'
+__version__ = '0.1.0-dev'
 __author__ = 'gpt'
 
 
