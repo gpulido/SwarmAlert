@@ -34,7 +34,8 @@ def monitor_swarm(docker_client, white_list, black_list):
     services_name = [service.name for service in services]
     logger.debug(str(services_name))  
     not_running_services = [service for service in services if(len(service.tasks({'desired-state':'Running'})) == 0)]
-    return not_running_services    
+    not_running_services_name = [service.name for service in not_running_services]
+    return not_running_services_name    
 
 
 def configure_logger(logger_level):
@@ -45,7 +46,7 @@ def configure_logger(logger_level):
     
 
 def analyse_status(stopped_services, new_stopped):    
-    recovered_services = [s for s in stopped_services if s not in stopped_services]
+    recovered_services = [s for s in stopped_services if s not in stopped_services]    
     new_failing = [s for s in new_stopped if s not in stopped_services]
     keep_failing = [ s for s in stopped_services if s in stopped_services]
     return (recovered_services, new_failing, keep_failing)
@@ -58,7 +59,7 @@ def monitor_and_notify(docker_client, apobj):
     while True:        
         new_stopped = monitor_swarm(docker_client, white_pattern_list, black_list)
         (recovered, failing, old_failing) = analyse_status(stopped_services, new_stopped)
-
+        logger.debug(f'Recovered: {str(recovered)}\nFailing: {str(failing)}\nold_failing: {str(old_failing)}') 
         if len(recovered != 0):                        
             recovered_msg = f'{msg_prefix} Recovered Services: \n {service_list_to_str(recovered)}'   
             logger.debug("Sending notification:" + recovered_msg)
